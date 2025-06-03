@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5300,
+            "driver": "PostgreSQL",
+            "name": "Node",
+            "database": "NodeDB",
+            "username": "NodeUser",
+            "password": "NodeP@ssw0rd"
+        }
+    ]
+}

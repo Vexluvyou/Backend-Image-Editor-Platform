@@ -1,0 +1,226 @@
+swagger: "2.0"
+info:
+  title: "Image Editor Platform"
+  version: "1.0.0"
+  description: "API Documentation with Bearer Token Authentication"
+
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+
+security:
+  - Bearer: []
+
+paths:
+  # ========== Auth Routes ========== #
+  /register:
+    post:
+      tags: [Auth]
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            required:
+              - name
+              - email
+              - password
+            properties:
+              name:
+                type: string
+              email:
+                type: string
+                format: email
+              password:
+                type: string
+                format: password
+      responses:
+        200:
+          description: "Success"
+
+  /login:
+    post:
+      tags: [Auth]
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            required:
+              - email
+              - password
+            properties:
+              email:
+                type: string
+                format: email
+              password:
+                type: string
+                format: password
+      responses:
+        200:
+          description: "Success"
+
+  # ========== Example Routes ========== #
+  /example:
+    get:
+      tags: [Example]
+      summary: "Get all examples"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+
+    post:
+      tags: [Example]
+      summary: "Create a new example"
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            required:
+              - name
+            properties:
+              name:
+                type: string
+    responses:
+      200:
+        description: "Success"
+
+  /example/{id}:
+    get:
+      tags: [Example]
+      summary: "Get example by ID"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: "The ID of the example"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+        404:
+          description: "Not Found"
+
+    put:
+      tags: [Example]
+      summary: "Update an example"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: "The ID of the example"
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+      responses:
+        200:
+          description: "Updated"
+        404:
+          description: "Not Found"
+
+    delete:
+      tags: [Example]
+      summary: "Delete an example"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: "The ID of the example"
+      responses:
+        200:
+          description: "Deleted"
+        404:
+          description: "Not Found"
+
+
+  # ========== Auth Routes ========== #
+  /auth:
+  post:
+    tags: [Auth]
+    summary: "Create a new auth"
+    parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: object
+          required:
+            - name
+          properties:
+            name:
+              type: string
+              description: "Name of the auth"
+    responses:
+      201:
+        description: "Created"
+        schema:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+
+  # ========== Image Routes ========== #
+  /image:
+    get:
+      tags: [Image]
+      summary: "Get all examples"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+
+
+# Components and Definitions
+definitions:
+  Product:
+    type: object
+    required:
+      - name
+      - price
+      - size
+    properties:
+      name:
+        type: string
+      price:
+        type: string
+      size:
+        type: string
